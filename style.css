@@ -1,0 +1,48 @@
+html, body {
+  height: 100%;
+  margin:0;
+  text-align: center;
+  background
+}
+.instructions {        
+    height:100%;
+    background-color: gray;
+}
+.game {
+  height: 100%;
+  background-color: green;
+}
+p{
+  margin: 0;
+}
+.theBox {
+  width: 468px;
+  height: 468px;
+  margin: auto;
+    border-style: solid;
+    border-color: red;
+    background-color: yellow;
+}
+
+.allCellsAlways {
+    width: 150px;
+    height: 150px;
+    display: inline-block; /*This helps make the 3 rows*/
+    float: left; /*second line as mentioned above*/
+    margin: 0px ;
+    padding: 0px ;
+    border-style: solid;
+    border-color: blue;
+}
+
+.xclass {
+  background-color: red ;
+}
+
+.oclass {
+  background-color: blue ;
+}
+
+.blankclass {
+  background-color: gray ;
+}
