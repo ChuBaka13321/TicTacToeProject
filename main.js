@@ -1,7 +1,7 @@
-var myScope;
+// var myScope;
 
 var TTTApp = angular.module('TTTApp', []);
-TTTApp.controller('TTTController', ["$scope", "$http", function ($scope, $http) {
+TTTApp.controller('TTTController', function ($scope) {
   // var promise = $http.get("https://api.github.com/repos/lorint/AndrewIG/issues");
   // promise.success(function(data){
   //   $scope.issues = data;
@@ -26,6 +26,7 @@ TTTApp.controller('TTTController', ["$scope", "$http", function ($scope, $http) 
   // $scope.alreadyClicked = false;
 
   $scope.playerPicks = function(thisCell) {
+    if(thisCell.status != 'X' && thisCell.status != 'O') {  
         if (($scope.movecounter % 2) == 0) {
           thisCell.status = "X";  
         } 
@@ -35,6 +36,10 @@ TTTApp.controller('TTTController', ["$scope", "$http", function ($scope, $http) 
         $scope.checkWinner();
 
         $scope.movecounter++; 
+    }
+    else {
+      thisCell.alreadyClicked = true;
+    }
     // console.log("Cell is now: " + thisCell.status);
   } ;
 
@@ -59,15 +64,18 @@ TTTApp.controller('TTTController', ["$scope", "$http", function ($scope, $http) 
         if (($scope.movecounter % 2) == 0) {
           // alert("Player X, You Won!");
           $scope.testString = "Player X has Won!";
+          // cellList.alreadyClicked = true;
         }
         else {
           // alert("Player O, You Won!");
           $scope.testString = "Player O has Won!";
+          // cellList.alreadyClicked = true;
         }
       }
       else if ($scope.movecounter==8){
           // alert("tie game...");
           $scope.testString = "Tie Game!";
+          // cellList.alreadyClicked = true;
       }
     };
 
@@ -86,8 +94,9 @@ $scope.reset = function() {
       {status: "H"}, 
       {status: "I"}
       ];
+    $scope.testString = "";
   };
-}]);
+});
 
 // Custom Directive Stuff
 // TTTApp.directive('myDirective', function () {
