@@ -7,32 +7,55 @@
     <script src="main.js"></script>
 </head>
 <body>
-      <div class="instructions">
+    <div class="instructions">
       <p>INSTRUCTIONS INSTRUCTIONS BLAH BLAH BLAH
       </p>
+
+    <!-- <select ng-model="rateMe">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <div our-rating rating-value="rateMe"></div> -->
+
+   <!--  <ul>
+      <li ng-repeat="i in issues">{{i.title}}</li>
+    </ul> -->
+    
     </div>
+    
     <div class="game">
-    <div class="wrapper">
       <div ng-controller="TTTController">
-        <p>TTT Reference: Step 1</p>
         CLICK COUNTER: {{movecounter}}
-        
         <div class="theBox" >
 
             <div ng-repeat="currentCell in cellList">
 
                 <div class="allCellsAlways" ng-click="playerPicks(currentCell)"
-                ng-class="{xclass: currentCell.status=='X', oclass: currentCell.status =='O'}">
-                Cell Contents: {{currentCell.status}}
+                ng-class="{xclass: currentCell.status=='X', oclass: currentCell.status =='O', empty: (currentCell.status != 'X' && currentCell.status != 'O')}">
+                  <div id="moveDown">
+                    <!-- {{currentCell.status}} -->
+                  </div>
+                </div>
             </div>
         </div>
+
+        <div class="display">{{testString}}</div>
+        <button ng-click="reset()">RESET BUTTON WORK IN PROGRESS</button>
+      </div>
     </div>
-    <br>
-    {{testString}}
-    <p></p>
-        <button ng-click="testJS()">TEST BUTTON</button>
-</div>
-</div>
-</div>
+
 </body>
 </html>
+
+  <!-- Custom Directive stuff -->
+                    <!-- <select x-ng-model="rateMe">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                    <div x-our-rating="1:2:3" x-rating-value="100"></div> -->

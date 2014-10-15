@@ -2,7 +2,6 @@ html, body {
   height: 100%;
   margin:0;
   text-align: center;
-  background
 }
 .instructions {        
     height:100%;
@@ -10,7 +9,7 @@ html, body {
 }
 .game {
   height: 100%;
-  background-color: green;
+  background-color: white;
 }
 p{
   margin: 0;
@@ -21,7 +20,6 @@ p{
   margin: auto;
     border-style: solid;
     border-color: red;
-    background-color: yellow;
 }
 
 .allCellsAlways {
@@ -36,13 +34,25 @@ p{
 }
 
 .xclass {
-  background-color: red ;
+  /*background-color: red ;*/
+  background: url('images/letterx.jpg');
+  background-size: 150px 150px;
 }
 
 .oclass {
-  background-color: blue ;
+  /*background-color: blue ;*/
+  background: url('images/lettero.jpg');
+  background-size: 150px 150px;
+}
+
+.empty {
+  background-color: gray;
 }
 
 .blankclass {
   background-color: gray ;
+}
+
+#moveDown {
+ padding: 20px;
 }
