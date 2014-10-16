@@ -1,16 +1,10 @@
-// var myScope;
+var TTTApp = angular.module('TTTApp', ["firebase"]);
+TTTApp.controller('TTTController', function ($scope, $firebase) {
 
-var TTTApp = angular.module('TTTApp', []);
-TTTApp.controller('TTTController', function ($scope) {
-  // var promise = $http.get("https://api.github.com/repos/lorint/AndrewIG/issues");
-  // promise.success(function(data){
-  //   $scope.issues = data;
-  // });
-  // promise.error(function(err){
-  //   console.log(err);
-  // });
+$scope.remoteGameContainer = 
+  $firebase(new Firebase("https://tictacchu.firebaseio.com/databaseGameContainer"));
 
-  $scope.cellList = [
+$scope.cellListX = [
   {status: "A"}, 
   {status: "B"}, 
   {status: "C"}, 
@@ -22,68 +16,159 @@ TTTApp.controller('TTTController', function ($scope) {
   {status: "I"}
   ];
   
-  $scope.movecounter = 0;
-  // $scope.alreadyClicked = false;
+  $scope.movecounterX = 0;
+
+  $scope.p1scoreX=0;
+  $scope.p2scoreX=0;
+  $scope.goesFirstCounterX = 0;
+  $scope.displayStringX="X will go first this turn.";
+  $scope.testStringX="";
+  $scope.winnerX = false;
+
+
+ // This container object is what gets synced:
+  $scope.gameContainer = {
+    cellList: $scope.cellListX,
+    movecounter: $scope.movecounterX,
+    p1score: $scope.p1scoreX,
+    p2score: $scope.p2scoreX,
+    goesFirstCounter: $scope.goesFirstCounterX,
+    displayString: $scope.displayStringX,
+    testString: $scope.testStringX,
+    winner: $scope.winnerX
+  };
+
+  // Everywhere else in your program, use $scope.gameContainer.cellListArray instead of cellList.
+  // Everywhere else in your program, use $scope.gameContainer.clickCounter instead of clickCount.
+  // Make that change in your ng-repeat as well and anywhere in your index.html as needed.
+
+
+  // remoteGameContainer: that is the name you gave the Firebase node (looks like a folder in Firebase).
+  // The bind statement creates a connection between anything in your app and the Firebase connection we just created.
+   
+  $scope.remoteGameContainer.$bind($scope, "gameContainer") ;
+
+ // The bind statement will automatically update your model, in this case cellList, whenever it 
+  // changes on Firebase.  But this will not trigger an Angular update of the interface (index.html)
+  // - we've been relying on the ng-click to wake up Angular and get the gameboard refreshed.
+  // So we put a watch on cellList - this tells Angular to refresh the interface elements, ie ng-class,
+  // whenever the model, in this case celList, changes.
+  $scope.$watch('gameContainer', function() {
+    console.log('gameCountainer changed!') ;
+  }) ;
+
+  
 
   $scope.playerPicks = function(thisCell) {
-    if(thisCell.status != 'X' && thisCell.status != 'O') {  
-        if (($scope.movecounter % 2) == 0) {
-          thisCell.status = "X";  
-        } 
-        else {
-          thisCell.status = "O";
+    if($scope.gameContainer.winner!=true){  
+      if(($scope.gameContainer.goesFirstCounter)%2 == 0) {
+        if(thisCell.status != 'X' && thisCell.status != 'O') {  
+            if (($scope.gameContainer.movecounter % 2) == 0) {
+              thisCell.status = "X";  
+              $scope.checkWinner();
+            } 
+            else {
+              thisCell.status = "O";
+              $scope.checkWinner();
+            }
+            $scope.gameContainer.movecounter++; 
         }
-        $scope.checkWinner();
-
-        $scope.movecounter++; 
+      }
+      else {
+        if(thisCell.status != 'X' && thisCell.status != 'O') { 
+            if (($scope.gameContainer.movecounter % 2) == 0) {
+              thisCell.status = "O";
+              $scope.checkWinner();  
+            } 
+            else {
+              thisCell.status = "X";
+              $scope.checkWinner();
+            }
+            $scope.gameContainer.movecounter++;
+        }
+      }
     }
-    else {
-      thisCell.alreadyClicked = true;
-    }
-    // console.log("Cell is now: " + thisCell.status);
-  } ;
+  };
 
   $scope.checkWinner = function() {
-    if (
+      if (
 
-      ($scope.cellList[0].status === $scope.cellList[1].status && $scope.cellList[0].status === $scope.cellList[2].status) ||
-      ($scope.cellList[0].status === $scope.cellList[3].status && $scope.cellList[0].status === $scope.cellList[6].status) ||
-      ($scope.cellList[0].status === $scope.cellList[4].status && $scope.cellList[0].status === $scope.cellList[8].status) ||
+      ($scope.gameContainer.cellList[0].status === $scope.gameContainer.cellList[1].status && $scope.gameContainer.cellList[0].status === $scope.gameContainer.cellList[2].status) ||
+      ($scope.gameContainer.cellList[0].status === $scope.gameContainer.cellList[3].status && $scope.gameContainer.cellList[0].status === $scope.gameContainer.cellList[6].status) ||
+      ($scope.gameContainer.cellList[0].status === $scope.gameContainer.cellList[4].status && $scope.gameContainer.cellList[0].status === $scope.gameContainer.cellList[8].status) ||
 
-      ($scope.cellList[1].status === $scope.cellList[4].status && $scope.cellList[1].status === $scope.cellList[7].status) ||
+      ($scope.gameContainer.cellList[1].status === $scope.gameContainer.cellList[4].status && $scope.gameContainer.cellList[1].status === $scope.gameContainer.cellList[7].status) ||
 
-      ($scope.cellList[2].status === $scope.cellList[4].status && $scope.cellList[2].status === $scope.cellList[6].status) ||
-      ($scope.cellList[2].status === $scope.cellList[5].status && $scope.cellList[2].status === $scope.cellList[8].status) ||
-      ($scope.cellList[3].status === $scope.cellList[4].status && $scope.cellList[3].status === $scope.cellList[5].status) ||
+      ($scope.gameContainer.cellList[2].status === $scope.gameContainer.cellList[4].status && $scope.gameContainer.cellList[2].status === $scope.gameContainer.cellList[6].status) ||
+      ($scope.gameContainer.cellList[2].status === $scope.gameContainer.cellList[5].status && $scope.gameContainer.cellList[2].status === $scope.gameContainer.cellList[8].status) ||
+      ($scope.gameContainer.cellList[3].status === $scope.gameContainer.cellList[4].status && $scope.gameContainer.cellList[3].status === $scope.gameContainer.cellList[5].status) ||
 
-      ($scope.cellList[6].status === $scope.cellList[7].status && $scope.cellList[6].status === $scope.cellList[8].status)
+      ($scope.gameContainer.cellList[6].status === $scope.gameContainer.cellList[7].status && $scope.gameContainer.cellList[6].status === $scope.gameContainer.cellList[8].status)
 
       )
 
       {
-        if (($scope.movecounter % 2) == 0) {
-          // alert("Player X, You Won!");
-          $scope.testString = "Player X has Won!";
-          // cellList.alreadyClicked = true;
+        if(($scope.gameContainer.goesFirstCounter)%2 == 0) {
+          if (($scope.gameContainer.movecounter % 2) == 0) {
+            $scope.gameContainer.testString = "Player X has Won!";
+            $scope.gameContainer.winner=true;
+            $scope.gameContainer.p1score++;
+            console.log($scope.gameContainer.winner);
+          }
+          else {
+            $scope.gameContainer.testString = "Player O has Won!";
+            $scope.gameContainer.winner=true;
+            $scope.gameContainer.p2score++;
+            console.log($scope.gameContainer.winner);
+          }
         }
         else {
-          // alert("Player O, You Won!");
-          $scope.testString = "Player O has Won!";
-          // cellList.alreadyClicked = true;
+          if (($scope.gameContainer.movecounter % 2) == 0) {
+            $scope.gameContainer.testString = "Player O has Won!";
+            $scope.gameContainer.winner=true;
+            $scope.gameContainer.p2score++;
+            console.log($scope.gameContainer.winner);
+          }
+          else {
+            $scope.gameContainer.testString = "Player X has Won!";
+            $scope.gameContainer.winner=true;
+            $scope.gameContainer.p1score++;
+            console.log($scope.gameContainer.winner);
+          }
         }
       }
-      else if ($scope.movecounter==8){
-          // alert("tie game...");
-          $scope.testString = "Tie Game!";
-          // cellList.alreadyClicked = true;
+      else if ($scope.gameContainer.movecounter==8){
+          $scope.gameContainer.testString = "Tie Game!";
       }
+      // $scope.freeze();
     };
-
-
+    // $scope.freeze = function() {
+    //   if ($scope.testString === "Player X has Won!") {
+    //     console.log("this is working");
+    //   }
+    //   else if ($scope.testString === "Player O has Won!") {
+    //     console.log("this is working");
+    //   }
+    //   else if ($scope.testString === "Tie Game!") {
+    //     console.log("this is working");
+    //   }
+    // };
+$scope.switchFirst = function() {
+  $scope.gameContainer.goesFirstCounter++;
+  if(($scope.gameContainer.goesFirstCounter)%2 == 0) {
+    $scope.gameContainer.displayString="X will go first this turn.";
+  }
+  else {
+    $scope.gameContainer.displayString="O will go first this turn.";
+  }
+  if($scope.gameContainer.goesFirstCounter == 2) {
+    $scope.gameContainer.goesFirstCounter=0;
+  }
+};
 
 $scope.reset = function() {
-    $scope.movecounter = 0;
-    $scope.cellList=[
+    $scope.gameContainer.movecounter = 0;
+    $scope.gameContainer.cellList=[
       {status: "A"}, 
       {status: "B"}, 
       {status: "C"}, 
@@ -94,8 +179,29 @@ $scope.reset = function() {
       {status: "H"}, 
       {status: "I"}
       ];
-    $scope.testString = "";
+    $scope.gameContainer.testString = "";
+    $scope.gameContainer.winner=false;
   };
+$scope.resetScore = function() {
+  $scope.gameContainer.movecounter = 0;
+    $scope.gameContainer.cellList=[
+      {status: "A"}, 
+      {status: "B"}, 
+      {status: "C"}, 
+      {status: "D"}, 
+      {status: "E"}, 
+      {status: "F"}, 
+      {status: "G"}, 
+      {status: "H"}, 
+      {status: "I"}
+      ];
+    $scope.gameContainer.testString = "";
+    $scope.gameContainer.p1score=0;
+    $scope.gameContainer.p2score=0;
+    $scope.gameContainer.goesFirstCounter=0;
+    $scope.gameContainer.displayString="X will go first this turn.";
+    $scope.gameContainer.winner=false;
+  }
 });
 
 // Custom Directive Stuff

@@ -2,13 +2,21 @@
 <html ng-app="TTTApp">
 <head>
     <title>TTT REFERENCE STEP 1</title>
+    <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="style.css"> 
+    <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.19/angular.min.js"></script> 
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
+    <!--App  --> 
     <script src="main.js"></script>
 </head>
 <body>
     <div class="instructions">
-      <p>INSTRUCTIONS INSTRUCTIONS BLAH BLAH BLAH
+      <p>INSTRUCTIONS INSTRUCTIONS BLAH BLAH BLAH SCROLL DOWN FOR NOW PLEASE!
       </p>
 
     <!-- <select ng-model="rateMe">
@@ -28,10 +36,13 @@
     
     <div class="game">
       <div ng-controller="TTTController">
-        CLICK COUNTER: {{movecounter}}
+        <p>CLICK COUNTER: {{gameContainer.movecounter}}</p> <!-- for visual testing -->
+        <p>First Turn COUNTER: {{gameContainer.goesFirstCounter}}</p> <!-- for visual testing -->
+        <button ng-click="switchFirst()">Switch who goes first</button>
+        <p>{{gameContainer.displayString}}</p>
         <div class="theBox" >
 
-            <div ng-repeat="currentCell in cellList">
+            <div ng-repeat="currentCell in gameContainer.cellList">
 
                 <div class="allCellsAlways" ng-click="playerPicks(currentCell)"
                 ng-class="{xclass: currentCell.status=='X', oclass: currentCell.status =='O', empty: (currentCell.status != 'X' && currentCell.status != 'O')}">
@@ -42,8 +53,13 @@
             </div>
         </div>
 
-        <div class="display">{{testString}}</div>
-        <button ng-click="reset()">RESET BUTTON WORK IN PROGRESS</button>
+        
+        <button ng-click="reset()">RESET BOARD</button>
+        <div class="display">{{gameContainer.testString}}</div>
+        <div>{{gameContainer.p1score}}</div>
+        <div>{{gameContainer.p2score}}</div>
+
+        <button ng-click="resetScore()">SCORE/HARD RESET</button>
       </div>
     </div>
 
