@@ -17,13 +17,16 @@ $scope.cellListX = [
   ];
   
   $scope.movecounterX = 0;
-
   $scope.p1scoreX=0;
   $scope.p2scoreX=0;
   $scope.goesFirstCounterX = 0;
-  $scope.displayStringX="X will go first this turn.";
+  $scope.displayStringX="Marines will go first this turn.";
   $scope.testStringX="";
   $scope.winnerX = false;
+  $scope.turnOffX = false;
+  $scope.xwinGifX = 0;
+  $scope.owinGifX = 0;
+  $scope.tieGifX = 0;
 
 
  // This container object is what gets synced:
@@ -35,7 +38,11 @@ $scope.cellListX = [
     goesFirstCounter: $scope.goesFirstCounterX,
     displayString: $scope.displayStringX,
     testString: $scope.testStringX,
-    winner: $scope.winnerX
+    winner: $scope.winnerX,
+    turnOff: $scope.turnOffX,
+    xwinGif: $scope.xwinGifX,
+    owinGif: $scope.owinGifX,
+    tieGif: $scope.tieGifX
   };
 
   // Everywhere else in your program, use $scope.gameContainer.cellListArray instead of cellList.
@@ -60,7 +67,7 @@ $scope.cellListX = [
   
 
   $scope.playerPicks = function(thisCell) {
-    if($scope.gameContainer.winner!=true){  
+    if($scope.gameContainer.winner!=true){// This first line prevents players from clicking after someone has won the round.
       if(($scope.gameContainer.goesFirstCounter)%2 == 0) {
         if(thisCell.status != 'X' && thisCell.status != 'O') {  
             if (($scope.gameContainer.movecounter % 2) == 0) {
@@ -71,7 +78,10 @@ $scope.cellListX = [
               thisCell.status = "O";
               $scope.checkWinner();
             }
-            $scope.gameContainer.movecounter++; 
+            $scope.gameContainer.movecounter++;
+            if ($scope.gameContainer.movecounter > 0) {
+              $scope.gameContainer.turnOff = true;
+            } 
         }
       }
       else {
@@ -85,6 +95,9 @@ $scope.cellListX = [
               $scope.checkWinner();
             }
             $scope.gameContainer.movecounter++;
+            if ($scope.gameContainer.movecounter > 0) {
+              $scope.gameContainer.turnOff = true;
+            }
         }
       }
     }
@@ -110,56 +123,51 @@ $scope.cellListX = [
       {
         if(($scope.gameContainer.goesFirstCounter)%2 == 0) {
           if (($scope.gameContainer.movecounter % 2) == 0) {
-            $scope.gameContainer.testString = "Player X has Won!";
+            $scope.gameContainer.testString = "Marines have Won!(Let's Rock!)";
             $scope.gameContainer.winner=true;
             $scope.gameContainer.p1score++;
             console.log($scope.gameContainer.winner);
+            $scope.gameContainer.xwinGif=1;
           }
           else {
-            $scope.gameContainer.testString = "Player O has Won!";
+            $scope.gameContainer.testString = "Xenomorphs have Won!";
             $scope.gameContainer.winner=true;
             $scope.gameContainer.p2score++;
             console.log($scope.gameContainer.winner);
+            $scope.gameContainer.owinGif=1;
           }
         }
         else {
           if (($scope.gameContainer.movecounter % 2) == 0) {
-            $scope.gameContainer.testString = "Player O has Won!";
+            $scope.gameContainer.testString = "Xenomorphs have Won!";
             $scope.gameContainer.winner=true;
             $scope.gameContainer.p2score++;
             console.log($scope.gameContainer.winner);
+            $scope.gameContainer.owinGif=1;
           }
           else {
-            $scope.gameContainer.testString = "Player X has Won!";
+            $scope.gameContainer.testString = "Marines have Won!(Let's Rock!)";
             $scope.gameContainer.winner=true;
             $scope.gameContainer.p1score++;
             console.log($scope.gameContainer.winner);
+            $scope.gameContainer.xwinGif=1;
           }
         }
       }
       else if ($scope.gameContainer.movecounter==8){
-          $scope.gameContainer.testString = "Tie Game!";
+          $scope.gameContainer.testString = "Stalemate!";
+          $scope.gameContainer.tieGif=1;
+            console.log($scope.gameContainer.tieGif);
       }
-      // $scope.freeze();
     };
-    // $scope.freeze = function() {
-    //   if ($scope.testString === "Player X has Won!") {
-    //     console.log("this is working");
-    //   }
-    //   else if ($scope.testString === "Player O has Won!") {
-    //     console.log("this is working");
-    //   }
-    //   else if ($scope.testString === "Tie Game!") {
-    //     console.log("this is working");
-    //   }
-    // };
+    
 $scope.switchFirst = function() {
   $scope.gameContainer.goesFirstCounter++;
   if(($scope.gameContainer.goesFirstCounter)%2 == 0) {
-    $scope.gameContainer.displayString="X will go first this turn.";
+    $scope.gameContainer.displayString="Marines will go first this turn.";
   }
   else {
-    $scope.gameContainer.displayString="O will go first this turn.";
+    $scope.gameContainer.displayString="Xenomorphs will go first this turn.";
   }
   if($scope.gameContainer.goesFirstCounter == 2) {
     $scope.gameContainer.goesFirstCounter=0;
@@ -181,6 +189,10 @@ $scope.reset = function() {
       ];
     $scope.gameContainer.testString = "";
     $scope.gameContainer.winner=false;
+    $scope.gameContainer.turnOff = false;
+    $scope.gameContainer.xwinGif = 0;
+    $scope.gameContainer.owinGif = 0;
+    $scope.gameContainertieGif = 0;
   };
 $scope.resetScore = function() {
   $scope.gameContainer.movecounter = 0;
@@ -195,12 +207,16 @@ $scope.resetScore = function() {
       {status: "H"}, 
       {status: "I"}
       ];
-    $scope.gameContainer.testString = "";
+    $scope.gameContainer.testString;
     $scope.gameContainer.p1score=0;
     $scope.gameContainer.p2score=0;
     $scope.gameContainer.goesFirstCounter=0;
-    $scope.gameContainer.displayString="X will go first this turn.";
+    $scope.gameContainer.displayString="Marines will go first this turn.";
     $scope.gameContainer.winner=false;
+    $scope.gameContainer.turnOff = false;
+    $scope.gameContainer.xwinGif = 0;
+    $scope.gameContainer.owinGif = 0;
+    $scope.gameContainertieGif = 0;
   }
 });
 

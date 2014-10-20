@@ -1,58 +1,176 @@
 html, body {
   height: 100%;
   margin:0;
-  text-align: center;
-}
-.instructions {        
-    height:100%;
-    background-color: gray;
+  padding: 0;
+/*  text-align: center;*/
 }
 .game {
   height: 100%;
-  background-color: white;
+  background: url('images/bluegreen1.jpg');
+  background-size: cover;
+  /*background-color: #2A7649;
+  background: -webkit-gradient(linear, left center, right center, from(#748A93), to(#2A7649));
+  background: -moz-linear-gradient(left, #748A93 0%, #2A7649 100%);*/
+  margin:0;
+}
+
+h3{
+  margin: 0;
+  color: #85C2FF;
+}
+h2{
+  margin:0;
+  color: green;
 }
 p{
   margin: 0;
+  color: #85C2FF;
+}
+.centerText {
+  margin-right: 150px;
+  margin-left: 150px;
+  text-align: center;
+}
+.playerSwitch {
+  top:15px;
+  width: 300px;
+  margin: auto;
+  text-align: center;
+  position: relative;
+}
+.marines {
+  top: 15px;
+  height: 200px;
+  width: 300px;
+  background: url('images/marinesbackground.jpg');
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  float: left;
+  position:relative;
+  text-align: center;
+  margin:0;
+}
+.aliens{
+  top: 15px;
+  height: 200px;
+  width: 300px;
+  background: url('images/alienScore.jpg');
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  float: right;
+  position:relative;
+  text-align: center;
+  margin:0;
 }
 .theBox {
+  top:15px;
   width: 468px;
   height: 468px;
   margin: auto;
-    border-style: solid;
-    border-color: red;
+  border-style: solid;
+  background: url('images/aliensbackground.jpg');
+  background-size: cover;
+  position: relative;
 }
 
 .allCellsAlways {
-    width: 150px;
-    height: 150px;
-    display: inline-block; /*This helps make the 3 rows*/
-    float: left; /*second line as mentioned above*/
-    margin: 0px ;
-    padding: 0px ;
-    border-style: solid;
-    border-color: blue;
+  width: 150px;
+  height: 150px;
+  display: inline-block; /*This helps make the 3 rows*/
+  float: left; /*second line as mentioned above*/
+  margin: 0px ;
+  padding: 0px ;
+  border-style: solid;
+  border-color: green;
+}
+.resetBoard{
+  top:15px;
+  width: 150px;
+  margin: auto;
+  position: relative;
+  text-align: center;
 }
 
-.xclass {
-  /*background-color: red ;*/
-  background: url('images/letterx.jpg');
-  background-size: 150px 150px;
+#motionTitle{
+  text-align: center;
+}
+#description{
+  text-align: center;
+}
+.music{
+  position: relative;
+  top: 2px;
+}
+.motionTracker{
+  bottom: 0;
+  height: 240px;
+  width: 300px;
+  background: url('images/motionTracker.gif');
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  float: left;
+  position:absolute;
+  margin:0;
+  /*border-style: solid;
+  border-color: green;*/
+}
+
+.endResult {
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 200px;
+  float: right;
+  position: absolute;
+  margin: 0;
+  /*border-style: solid;
+  border-color: green;*/
+}
+.display{
+  text-align: center;
+}
+#imageO {
+  width: 300px;
+  height: 178px;
+  background: url('images/gameOver.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+#imageX {
+  width: 300px;
+  height: 177px;
+  background: url('images/letsRock.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+#imageTie {
+  width: 300px;
+  height: 177px;
+  background: url('images/tie.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
 }
 
 .oclass {
-  /*background-color: blue ;*/
-  background: url('images/lettero.jpg');
-  background-size: 150px 150px;
+  /*background-color: red ;*/
+  height: 150px;
+  width: 150px;
+  background: url('images/alienResize.gif');/*no-repeat center center fixed*/
+  background-size: cover;
 }
 
-.empty {
-  background-color: gray;
+.xclass {
+  /*background-color: blue ;*/
+  background: url('images/marines.gif');
+  background-size: cover;
 }
 
 .blankclass {
   background-color: gray ;
-}
-
-#moveDown {
- padding: 20px;
 }

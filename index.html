@@ -14,64 +14,62 @@
     <!--App  --> 
     <script src="main.js"></script>
 </head>
-<body>
-    <div class="instructions">
-      <p>INSTRUCTIONS INSTRUCTIONS BLAH BLAH BLAH SCROLL DOWN FOR NOW PLEASE!
-      </p>
+<body ng-controller="TTTController">
+    <div class="game">  
+      <div class="centerText">
+        <h3>Yeah. An "Aliens" movie-themed tic tac toe game. Choose to play as either the "Badass" Colonial Marines or the Cute and Cuddly Xenomorph Aliens. Take turns trying to get three in a row on the playing field below!</h3>
+      </div>
+      <div>
+        <!-- <p>CLICK COUNTER: {{gameContainer.movecounter}}</p> --> <!-- for visual testing -->
+        <!-- <p>First Turn COUNTER: {{gameContainer.goesFirstCounter}}</p> --> <!-- for visual testing -->
+        <div class="playerSwitch">
+          <button ng-click="switchFirst()" ng-disabled="gameContainer.turnOff">SWITCH WHO WILL STRIKE FIRST!</button>
+          <h3>{{gameContainer.displayString}}</h3>
+        </div>
+        <div class="marines"> <!-- Marines Scoreboard -->
+          <div><h3>Marines' Score: {{gameContainer.p1score}}</h3></div>
+        </div>
+        <div class="aliens"> <!-- Aliens Scoreboard -->
+          <div><h3>Xenomorphs' Score: {{gameContainer.p2score}}</h3></div>
+        </div>
 
-    <!-- <select ng-model="rateMe">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-    <div our-rating rating-value="rateMe"></div> -->
-
-   <!--  <ul>
-      <li ng-repeat="i in issues">{{i.title}}</li>
-    </ul> -->
-    
-    </div>
-    
-    <div class="game">
-      <div ng-controller="TTTController">
-        <p>CLICK COUNTER: {{gameContainer.movecounter}}</p> <!-- for visual testing -->
-        <p>First Turn COUNTER: {{gameContainer.goesFirstCounter}}</p> <!-- for visual testing -->
-        <button ng-click="switchFirst()">Switch who goes first</button>
-        <p>{{gameContainer.displayString}}</p>
-        <div class="theBox" >
-
+        <div class="theBox">
             <div ng-repeat="currentCell in gameContainer.cellList">
-
                 <div class="allCellsAlways" ng-click="playerPicks(currentCell)"
                 ng-class="{xclass: currentCell.status=='X', oclass: currentCell.status =='O', empty: (currentCell.status != 'X' && currentCell.status != 'O')}">
-                  <div id="moveDown">
-                    <!-- {{currentCell.status}} -->
-                  </div>
                 </div>
             </div>
         </div>
 
+        <div class="resetBoard">
+          <button ng-click="reset()">RESET THE BATTLEFIELD</button>
+          <button ng-click="resetScore()">RESET THE SCORE/GAME</button>
+        </div>
         
-        <button ng-click="reset()">RESET BOARD</button>
-        <div class="display">{{gameContainer.testString}}</div>
-        <div>{{gameContainer.p1score}}</div>
-        <div>{{gameContainer.p2score}}</div>
-
-        <button ng-click="resetScore()">SCORE/HARD RESET</button>
+        <!-- Displays ending Image/Gif depending on Winner or Tie -->
+        <div class="endResult">
+          <div class="display"><h3>{{gameContainer.testString}}</h3></div> <!-- Displays Who Won this Round -->
+          <!-- Following 3 Divs display different images at the end of each round depending on winner. -->
+          <div id = "imageX" ng-show="gameContainer.xwinGif">
+          </div>
+          <div id = "imageO" ng-show="gameContainer.owinGif">
+          </div>
+          <div id = "imageTie" ng-show="gameContainer.tieGif">
+          </div>
+        </div>
+        <div class="motionTracker">
+          <h3 id="motionTitle">Pvt. Hudson's Motion Tracker Audio</h3>
+          <p id="description">Press play to add some suspense!</p>
+          <div class="music">
+            <audio controls>
+              <source src="music/hudsonMT.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+      </div>
+        
       </div>
     </div>
 
 </body>
 </html>
-
-  <!-- Custom Directive stuff -->
-                    <!-- <select x-ng-model="rateMe">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                    </select>
-                    <div x-our-rating="1:2:3" x-rating-value="100"></div> -->
