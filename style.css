@@ -2,6 +2,7 @@ html, body {
   height: 100%;
   margin:0;
   padding: 0;
+  font-family:'Orbitron', sans-serif;
 /*  text-align: center;*/
 }
 .game {
@@ -13,34 +14,33 @@ html, body {
   background: -moz-linear-gradient(left, #748A93 0%, #2A7649 100%);*/
   margin:0;
 }
-
 h3{
   margin: 0;
   color: #85C2FF;
-}
-h2{
-  margin:0;
-  color: green;
+  font-size: 87%;
 }
 p{
   margin: 0;
   color: #85C2FF;
+  font-size: 80%;
 }
 .centerText {
-  margin-right: 150px;
-  margin-left: 150px;
+  top: 8px;
+  margin-right: 140px;
+  margin-left: 140px;
   text-align: center;
+  position: relative;
 }
 .playerSwitch {
-  top:15px;
+  top:18px;
   width: 300px;
   margin: auto;
   text-align: center;
   position: relative;
 }
 .marines {
-  top: 15px;
-  height: 200px;
+  top: 20px;
+  height: 180px;
   width: 300px;
   background: url('images/marinesbackground.jpg');
   background-size: contain;
@@ -52,8 +52,8 @@ p{
   margin:0;
 }
 .aliens{
-  top: 15px;
-  height: 200px;
+  top: 20px;
+  height: 180px;
   width: 300px;
   background: url('images/alienScore.jpg');
   background-size: contain;
@@ -65,7 +65,7 @@ p{
   margin:0;
 }
 .theBox {
-  top:15px;
+  top:18px;
   width: 468px;
   height: 468px;
   margin: auto;
@@ -86,7 +86,7 @@ p{
   border-color: green;
 }
 .resetBoard{
-  top:15px;
+  top:18px;
   width: 150px;
   margin: auto;
   position: relative;
@@ -95,9 +95,11 @@ p{
 
 #motionTitle{
   text-align: center;
+  font-size:85%;
 }
 #description{
   text-align: center;
+  color: red;
 }
 .music{
   position: relative;
@@ -105,7 +107,7 @@ p{
 }
 .motionTracker{
   bottom: 0;
-  height: 240px;
+  height: 227px;
   width: 300px;
   background: url('images/motionTracker.gif');
   background-size: contain;
@@ -122,7 +124,7 @@ p{
   bottom: 0;
   right: 0;
   width: 300px;
-  height: 200px;
+  height: 190px;
   float: right;
   position: absolute;
   margin: 0;
@@ -134,7 +136,7 @@ p{
 }
 #imageO {
   width: 300px;
-  height: 178px;
+  height: 176px;
   background: url('images/gameOver.jpg');
   background-size: contain;
   background-repeat: no-repeat;
@@ -142,7 +144,7 @@ p{
 }
 #imageX {
   width: 300px;
-  height: 177px;
+  height: 176px;
   background: url('images/letsRock.gif');
   background-size: contain;
   background-repeat: no-repeat;

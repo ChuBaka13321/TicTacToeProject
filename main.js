@@ -123,7 +123,7 @@ $scope.cellListX = [
       {
         if(($scope.gameContainer.goesFirstCounter)%2 == 0) {
           if (($scope.gameContainer.movecounter % 2) == 0) {
-            $scope.gameContainer.testString = "Marines have Won!(Let's Rock!)";
+            $scope.gameContainer.testString = "Marines have Won! (Let's Rock!)";
             $scope.gameContainer.winner=true;
             $scope.gameContainer.p1score++;
             console.log($scope.gameContainer.winner);
@@ -146,7 +146,7 @@ $scope.cellListX = [
             $scope.gameContainer.owinGif=1;
           }
           else {
-            $scope.gameContainer.testString = "Marines have Won!(Let's Rock!)";
+            $scope.gameContainer.testString = "Marines have Won! (Let's Rock!)";
             $scope.gameContainer.winner=true;
             $scope.gameContainer.p1score++;
             console.log($scope.gameContainer.winner);
